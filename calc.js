@@ -57,20 +57,19 @@ $(document).ready(function(){
   $(".equals").click(function(){
     switch(operator) {
       case '+':
-        number = rounding((parseInt(newNumber, 10) + parseInt(number, 10))).toString(10);
+        number = rounding((parseFloat(newNumber, 10) + parseFloat(number, 10))).toString(10);
         break;
       case '-':
-        number = rounding((parseInt(newNumber, 10) - parseInt(number, 10))).toString(10);
+        number = rounding((parseFloat(newNumber, 10) - parseFloat(number, 10))).toString(10);
         break;
       case '*':
-        number = rounding((parseInt(newNumber, 10) * parseInt(number, 10))).toString(10);
+        number = rounding((parseFloat(newNumber, 10) * parseFloat(number, 10))).toString(10);
         break;
       case '/':
-        number = rounding((parseInt(newNumber, 10) / parseInt(number, 10))).toString(10);
+        number = rounding((parseFloat(newNumber, 10) / parseFloat(number, 10))).toString(10);
     }
     totalDisplay.text(number);
     overflowCheck(number);
-    console.log(rounding(1.1111116));
   })
 
 });
