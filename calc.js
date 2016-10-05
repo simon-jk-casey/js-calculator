@@ -1,11 +1,15 @@
 $(document).ready(function(){
-
+  //keep "onscreen"
   function overflowCheck(number) {
     if (number.length > 12) {
       number = "";
       totalDisplay.text("Error");
     };
   };
+  //rounding function - 6dp
+  function rounding (number) {
+    return +(Math.round(number + "e+6") + "e-6");
+  }
 
   var number = "";
   var newNumber = "";
@@ -46,15 +50,16 @@ $(document).ready(function(){
       number = memory;
       totalDisplay.text(number);
     }
-    //MEM-ADD and MEM-RECALL HERE
   });
-  //rounding function - 6dp
-  function rounding (number) {
-    return +(Math.round(number + "e+6") + "e-6");
-  }
+  //PI
+  $(".pi").click(function(){
+      number = rounding(Math.PI);
+      totalDisplay.text(number);
+  })
 
   //calculations
   $(".equals").click(function(){
+    console.log(operator);
     switch(operator) {
       case '+':
         number = rounding((parseFloat(newNumber, 10) + parseFloat(number, 10))).toString(10);
@@ -67,9 +72,21 @@ $(document).ready(function(){
         break;
       case '/':
         number = rounding((parseFloat(newNumber, 10) / parseFloat(number, 10))).toString(10);
+        break;
+      case 'xⁿ':
+        number = rounding(parseFloat(Math.pow(newNumber,number),10)).toString(10);
     }
     totalDisplay.text(number);
     overflowCheck(number);
   })
-
+  $(".square").click(function(){
+    number = rounding((parseFloat(number, 10) * parseFloat(number, 10))).toString(10);
+    totalDisplay.text(number);
+    overflowCheck(number);
+  })
+  $(".sqrt").click(function(){
+    number = rounding((parseFloat(Math.sqrt(number), 10))).toString(10);
+    totalDisplay.text(number);
+    overflowCheck(number);
+  })
 });
