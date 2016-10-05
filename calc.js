@@ -11,7 +11,7 @@ $(document).ready(function(){
   var newNumber = "";
   var operator = "";
   var totalDisplay = $("#display");
-  //var memory = "";
+  var memory = "";
   totalDisplay.text("0");
   //number input
   $(".num").click(function(){
@@ -36,27 +36,41 @@ $(document).ready(function(){
       number = "";
       newNumber = "";
       operator = "";
+      memory = "";
       totalDisplay.text(0);
+    }
+    if ($(this).attr("name") === "mem-add") {
+      memory = number;
+    }
+    if ($(this).attr("name") === "mem-recall") {
+      number = memory;
+      totalDisplay.text(number);
     }
     //MEM-ADD and MEM-RECALL HERE
   });
+  //rounding function - 6dp
+  function rounding (number) {
+    return +(Math.round(number + "e+6") + "e-6");
+  }
+
   //calculations
   $(".equals").click(function(){
     switch(operator) {
       case '+':
-        number = (parseInt(newNumber, 10) + parseInt(number, 10)).toString(10);
+        number = rounding((parseInt(newNumber, 10) + parseInt(number, 10))).toString(10);
         break;
       case '-':
-        number = (parseInt(newNumber, 10) - parseInt(number, 10)).toString(10);
+        number = rounding((parseInt(newNumber, 10) - parseInt(number, 10))).toString(10);
         break;
       case '*':
-        number = (parseInt(newNumber, 10) * parseInt(number, 10)).toString(10);
+        number = rounding((parseInt(newNumber, 10) * parseInt(number, 10))).toString(10);
         break;
       case '/':
-        number = (parseInt(newNumber, 10) / parseInt(number, 10)).toString(10);
+        number = rounding((parseInt(newNumber, 10) / parseInt(number, 10))).toString(10);
     }
     totalDisplay.text(number);
     overflowCheck(number);
+    console.log(rounding(1.1111116));
   })
 
 });
