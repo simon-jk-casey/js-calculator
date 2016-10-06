@@ -1,0 +1,76 @@
+*  {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#display {
+  margin: 0;
+  width: 34%;
+  text-align: right;
+  padding: 2%;
+}
+.container {
+  display: table;
+  border: 1px solid black;
+}
+.one.column .calc_fn {
+  background-color: blue;
+  display: table-cell;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+}
+.one.column .square {
+  background-color: blue;
+  display: table-cell;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+}
+.one.column .operator {
+  background-color: blue;
+  display: table-cell;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+}
+.one.column .sqrt {
+  background-color: blue;
+  display: table-cell;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+}
+.one.column .pi {
+  background-color: blue;
+  display: table-cell;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+}
+.one.column .num {
+  background-color: blue;
+  display: table-cell;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+}
+.one.column .equals {
+  background-color: blue;
+  display: table-cell;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+}
+.one.column {
+  margin: 0.5%;
+  width: 7.65%;
+}
+.row {
+  height: 100%;
+}
+.four.columns {
+  margin: 0;
+  padding: 0;
+}
