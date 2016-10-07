@@ -12,70 +12,70 @@ $(document).ready(function(){
   }
 
   var number = "";
-  var newNumber = "";
   var operator = "";
   var totalDisplay = $("#display");
   var memory = "";
+  var eqString = "";
   totalDisplay.text("0");
   //number input
   $(".num").click(function(){
     number += $(this).val();
+    eqString += number
     totalDisplay.text(number);
     overflowCheck(number);
   });
   //operator input
-  $(".operator").click(function(){
+  $(".operator").not("#power").click(function(){
     operator = $(this).val();
-    newNumber = number;
+    eqString += operator
+    number = "";
+    totalDisplay.text("0");
+  });
+  $("#power").click(function(){
+    operator = '**';
+    eqString += operator
     number = "";
     totalDisplay.text("0");
   });
   //calculator function buttons
   $(".calc_fn").click(function(){
     if ($(this).attr("name") === "clr") {
-      number = "";
+      eqString=eqString.slice(0,-1)
       totalDisplay.text("0")
+      console.log(eqString)
     }
     if ($(this).attr("name") === "clr-all") {
       number = "";
-      newNumber = "";
+      eqString = "";
       operator = "";
       memory = "";
       totalDisplay.text(0);
     }
     if ($(this).attr("name") === "mem-add") {
       memory = number;
+      number =""
+      eqString = "";
+      totalDisplay.text(0);
     }
     if ($(this).attr("name") === "mem-recall") {
       number = memory;
+      eqString +=number;
       totalDisplay.text(number);
+      if (number === '') {
+        totalDisplay.text(0);
+      }
     }
   });
   //PI
   $(".pi").click(function(){
       number = rounding(Math.PI);
+      eqString +=number;
       totalDisplay.text(number);
   })
 
   //calculations
   $(".equals").click(function(){
-    console.log(operator);
-    switch(operator) {
-      case '+':
-        number = rounding((parseFloat(newNumber, 10) + parseFloat(number, 10))).toString(10);
-        break;
-      case '-':
-        number = rounding((parseFloat(newNumber, 10) - parseFloat(number, 10))).toString(10);
-        break;
-      case '*':
-        number = rounding((parseFloat(newNumber, 10) * parseFloat(number, 10))).toString(10);
-        break;
-      case '/':
-        number = rounding((parseFloat(newNumber, 10) / parseFloat(number, 10))).toString(10);
-        break;
-      case 'xⁿ':
-        number = rounding(parseFloat(Math.pow(newNumber,number),10)).toString(10);
-    }
+    number = rounding(parseFloat((eval(eqString))));
     totalDisplay.text(number);
     overflowCheck(number);
   })
