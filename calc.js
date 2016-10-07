@@ -18,12 +18,18 @@ $(document).ready(function(){
   var eqString = "";
   totalDisplay.text("0");
   //number input
-  $(".num").click(function(){
+  $(".num").not("#decpt").click(function(){
     number += $(this).val();
     eqString += number
     totalDisplay.text(number);
     overflowCheck(number);
+    console.log(eqString);
   });
+  $("#decpt").click(function(){
+    number += ".";
+    eqString = eqString.slice(1,1);
+    totalDisplay.text(number);
+  })
   //operator input
   $(".operator").not("#power").click(function(){
     operator = $(this).val();
@@ -76,6 +82,7 @@ $(document).ready(function(){
   //calculations
   $(".equals").click(function(){
     number = rounding(parseFloat((eval(eqString))));
+    console.log(eqString)
     totalDisplay.text(number);
     overflowCheck(number);
   })
