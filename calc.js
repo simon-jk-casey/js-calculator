@@ -9,63 +9,62 @@ $(document).ready(function(){
   //rounding function - 6dp
   function rounding (number) {
     return +(Math.round(number + "e+6") + "e-6");
-  }
-
+  };
   var number = "";
+  var displayNumber = "";
   var operator = "";
   var totalDisplay = $("#display");
   var memory = "";
+  var eqArray = []
   var eqString = "";
   totalDisplay.text("0");
   //number input
-  $(".num").not("#decpt").click(function(){
-    number += $(this).val();
-    eqString += number
-    totalDisplay.text(number);
+  $(".num").click(function(){
+    number = $(this).val();
+    displayNumber += $(this).val();
+    eqArray.push(number);
+    totalDisplay.text(displayNumber);
     overflowCheck(number);
-    console.log(eqString);
+    console.log(eqArray);
   });
-  $("#decpt").click(function(){
-    number += ".";
-    eqString = eqString.slice(1,1);
-    totalDisplay.text(number);
-  })
   //operator input
   $(".operator").not("#power").click(function(){
     operator = $(this).val();
-    eqString += operator
+    eqArray.push(operator);
     number = "";
+    displayNumber = "";
     totalDisplay.text("0");
+    console.log(eqArray);
   });
   $("#power").click(function(){
     operator = '**';
-    eqString += operator
+    eqArray.push(operator);
     number = "";
+    displayNumber = "";
     totalDisplay.text("0");
   });
   //calculator function buttons
   $(".calc_fn").click(function(){
     if ($(this).attr("name") === "clr") {
-      eqString=eqString.slice(0,-1)
-      totalDisplay.text("0")
-      console.log(eqString)
+      eqArray.pop();
+      totalDisplay.text("0");
     }
     if ($(this).attr("name") === "clr-all") {
       number = "";
       eqString = "";
       operator = "";
       memory = "";
+      eqArray = [];
       totalDisplay.text(0);
     }
     if ($(this).attr("name") === "mem-add") {
       memory = number;
       number =""
-      eqString = "";
       totalDisplay.text(0);
     }
     if ($(this).attr("name") === "mem-recall") {
       number = memory;
-      eqString +=number;
+      eqArray.push(number);
       totalDisplay.text(number);
       if (number === '') {
         totalDisplay.text(0);
@@ -75,16 +74,19 @@ $(document).ready(function(){
   //PI
   $(".pi").click(function(){
       number = rounding(Math.PI);
-      eqString +=number;
+      eqArray.push(number);
       totalDisplay.text(number);
   })
 
   //calculations
   $(".equals").click(function(){
+    initString = eqArray.toString();
+    eqString = initString.replace(/[,]/g, '');
     number = rounding(parseFloat((eval(eqString))));
-    console.log(eqString)
     totalDisplay.text(number);
     overflowCheck(number);
+    eqArray = [];
+    eqArray.push(number);
   })
   $(".square").click(function(){
     number = rounding((parseFloat(number, 10) * parseFloat(number, 10))).toString(10);
