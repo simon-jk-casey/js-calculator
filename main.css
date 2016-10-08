@@ -4,6 +4,9 @@
     -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
+body, html {
+  overflow-x: hidden;
+}
 .container {
   margin-top: 2%;
   display: table;

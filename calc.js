@@ -5,19 +5,48 @@ $(document).ready(function(){
       number = "";
       totalDisplay.text("Error");
     };
-  };
+  }
   //rounding function - 6dp
   function rounding (number) {
     return +(Math.round(number + "e+6") + "e-6");
-  };
+  }
+  //ERROR PREVENTION
+  function stopOpErr() {
+    $(".operator").not("#decpt").click(function(){
+      $(this).attr("disabled","disabled");
+    })
+  }
+  function stopDecErr(){
+    $("#decpt, .pi").click(function(){
+      $(this).attr("disabled","disabled");
+      $(this).attr("disabled", "disabled");
+    })
+  }
+  function reenableOper(){
+    $(".num, .equals .calc_fn .square .sqrt").click(function(){
+      $(".operator").removeAttr('disabled');
+    })
+  }
+  function reenableDec(){
+    $(".operator, .equals .calc_fn .square .sqrt").click(function(){
+      $("#decpt").removeAttr('disabled');
+      $(".pi").removeAttr('disabled');
+    })
+  }
+  //initialise global vars
   var number = "";
   var displayNumber = "";
   var operator = "";
   var totalDisplay = $("#display");
   var memory = "";
-  var eqArray = []
+  var eqArray = [];
   var eqString = "";
   totalDisplay.text("0");
+  //call global error prevention functions
+  stopOpErr()
+  stopDecErr()
+  reenableDec()
+  reenableOper()
   //number input
   $(".num").click(function(){
     number = $(this).val();
@@ -25,7 +54,6 @@ $(document).ready(function(){
     eqArray.push(number);
     totalDisplay.text(displayNumber);
     overflowCheck(number);
-    console.log(eqArray);
   });
   //operator input
   $(".operator").not("#power").click(function(){
@@ -34,7 +62,6 @@ $(document).ready(function(){
     number = "";
     displayNumber = "";
     totalDisplay.text("0");
-    console.log(eqArray);
   });
   $("#power").click(function(){
     operator = '**';
@@ -47,6 +74,7 @@ $(document).ready(function(){
   $(".calc_fn").click(function(){
     if ($(this).attr("name") === "clr") {
       eqArray.pop();
+      displayNumber = ''
       totalDisplay.text("0");
     }
     if ($(this).attr("name") === "clr-all") {
@@ -54,16 +82,21 @@ $(document).ready(function(){
       eqString = "";
       operator = "";
       memory = "";
+      displayNumber = '';
       eqArray = [];
       totalDisplay.text(0);
     }
     if ($(this).attr("name") === "mem-add") {
       memory = number;
       number =""
+      displayNumber = "";
+      eqArray = [];
+      eqString = "";
       totalDisplay.text(0);
     }
     if ($(this).attr("name") === "mem-recall") {
       number = memory;
+      displayNumber = memory;
       eqArray.push(number);
       totalDisplay.text(number);
       if (number === '') {
