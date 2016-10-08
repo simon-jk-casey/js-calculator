@@ -54,6 +54,7 @@ $(document).ready(function(){
     eqArray.push(number);
     totalDisplay.text(displayNumber);
     overflowCheck(number);
+    overflowCheck(displayNumber);
   });
   //operator input
   $(".operator").not("#power").click(function(){
@@ -122,13 +123,21 @@ $(document).ready(function(){
     eqArray.push(number);
   })
   $(".square").click(function(){
-    number = rounding((parseFloat(number, 10) * parseFloat(number, 10))).toString(10);
+    initString = eqArray.toString();
+    eqString = initString.replace(/[,]/g, '');
+    number = rounding((parseFloat(eqString, 10) * parseFloat(eqString, 10))).toString(10);
     totalDisplay.text(number);
     overflowCheck(number);
+    eqArray = [];
+    eqArray.push(number);
   })
   $(".sqrt").click(function(){
-    number = rounding((parseFloat(Math.sqrt(number), 10))).toString(10);
+    initString = eqArray.toString();
+    eqString = initString.replace(/[,]/g, '');
+    number = rounding((parseFloat(Math.sqrt(eqString), 10))).toString(10);
     totalDisplay.text(number);
     overflowCheck(number);
+    eqArray = [];
+    eqArray.push(number);
   })
 });
